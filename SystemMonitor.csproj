@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>SystemMonitor</AssemblyName>
+    <RootNamespace>SystemMonitor</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Used for the disk read/write meter (PhysicalDisk performance counters) -->
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
