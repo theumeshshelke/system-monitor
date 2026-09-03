@@ -1,0 +1,29 @@
+name: Build Windows exe
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish self-contained single-file exe
+        run: dotnet publish SystemMonitor.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish-output
+
+      - name: Upload exe as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SystemMonitor-exe
+          path: publish-output/SystemMonitor.exe
+          
