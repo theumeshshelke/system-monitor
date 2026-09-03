@@ -296,7 +296,7 @@ namespace SystemMonitor
             }
             _diskReadCounter?.Dispose();
             _diskWriteCounter?.Dispose();
-            Application.Current.Shutdown();
+           System.Windows.Application.Current.Shutdown();
         }
 
         // ------------------- Win32 interop -------------------
