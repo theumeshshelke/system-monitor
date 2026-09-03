@@ -4,6 +4,11 @@ on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -21,9 +26,14 @@ jobs:
       - name: Publish self-contained single-file exe
         run: dotnet publish SystemMonitor.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish-output
 
-      - name: Upload exe as an artifact
+      - name: Upload exe as a workflow artifact
         uses: actions/upload-artifact@v4
         with:
           name: SystemMonitor-exe
           path: publish-output/SystemMonitor.exe
-          
+
+      - name: Attach exe to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: publish-output/SystemMonitor.exe
